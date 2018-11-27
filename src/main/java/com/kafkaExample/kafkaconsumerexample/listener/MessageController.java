@@ -1,5 +1,7 @@
 package com.kafkaExample.kafkaconsumerexample.listener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -14,6 +16,8 @@ import com.kafkaExample.kafkaconsumerexample.model.User;
 
 @RestController
 public class MessageController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	
 	@Value("${kafka.source.topic.name}")
 	private String DESTINATION_TOPIC;
@@ -32,7 +36,7 @@ public class MessageController {
     @PostMapping("/publishJson")
     public String publishJsonMessage(@RequestBody User user) {
     	
-    	System.out.println("Publishing JSON Message...");
+    	logger.info("Publishing JSON Message to " + DESTINATION_TOPIC + " >>>> ");
     	kafkaTemplate.send(DESTINATION_TOPIC, user);
 		return "Successfully pulbished message to "+ DESTINATION_TOPIC;
     	
