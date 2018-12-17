@@ -46,9 +46,9 @@ public class KafkaConsumer {
         	 kafkaSender.send(destinationTopic, user);
              log.info("Message published successfully ");
         }
-        catch(Exception e) {
-        	e.printStackTrace();
-        	log.error("Message publishing failed");
+        catch(Exception ex) {
+        	ex.printStackTrace();
+        	log.error("Message publishing failed:"+ex);
         }
     }
 }
